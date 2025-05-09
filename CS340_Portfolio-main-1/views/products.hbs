@@ -1,0 +1,143 @@
+{{!-- 
+Citation for the following code 
+Date: 5/21/23
+Adapted from CS 340 Node JS Starter Code
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app--}}
+
+<h1>Products</h1>
+
+{{!-- Products Table --}}
+<table id="products-table">
+   
+    <thead>
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th>delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each product}}
+        <tr>
+            <td>{{this.productID}}</td>
+            <td>{{this.productName}}</td>
+            <td>{{this.categoryID}}</td>
+            <td>{{this.quantityInStock}}</td>
+            <td>{{this.retailPrice}}</td>
+            <td>{{this.msrp}}</td>
+            <td><button onclick="deleteProduct('{{this.productID}}')" >Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<script src="./js/delete_product.js"></script>
+
+<p>&nbsp;</p>
+
+
+{{!-- Form to search a product by product name  --}}
+
+<div class="field-search-s">
+    <h3>Search by Product Name</h3>
+    <form class="forms" id="search-product-html" method='GET' action='/products'>
+        <label for="input-productID">Product Name: </label>
+        <select class="form-select" name="productID" id="input-productID-html-search">
+            <option value="">Select Product Name</option>
+            {{#each product}}
+            <option value="{{this.productID}}">{{this.productName}}</option>
+            {{/each}}
+        </select>
+ 
+        <input class="style-button" type="submit">
+        <a href='/products'><button>Reset</button></a>
+    </form>
+</div>
+
+
+{{!-- Form to add a product --}}
+
+<div class="field-select-form">
+    
+    <form id="add-product-form-ajax" class="forms">
+    <h3>Add Product</h3>
+       
+        <div>
+            <label for="input-productID">Product ID:</label>
+            <input required placeholder="ID" class="form-input" type="text" name="input-productID" id="input-productID" />
+        </div>
+
+        <div>
+            <label for="input-productName">Product Name:</label>
+            <input required placeholder="Product Name" class="form-input" type="text" name="input-productName" id="input-productName" />
+        </div>
+
+        <div>
+        <label for="input-categoryID">Category Name: </label>
+        <select class="form-select" name="input-categoryID" id="input-categoryID">
+            <option value="">Select Category Name</option>
+            <option value="">No Category</option>
+            {{#each categories}}
+            <option value="{{this.categoryID}}">{{this.categoryName}}</option>
+            {{/each}}
+        </select>
+        </div>
+   
+        <div>
+            <label for="input-quantityInStock">Quantity In Stock:</label>
+            <input required placeholder="Quantity"class="form-input" type="number" name="input-quantityInStock" id="input-quantityInStock"/>
+        </div>
+  
+        <div>
+            <label for="input-retailPrice">Retail Price: </label>
+            <input required placeholder="$" class="form-input" type="decimal" name="input-retailPrice" id="input-retailPrice">
+        </div>
+
+        <div>
+            <label for="input-msrp">MSRP: </label>
+            <input required placeholder="$" class="form-input" type="decimal" name="input-msrp" id="input-msrp">
+        </div>
+        
+        <input class="style-button" type="submit">
+         
+    </form>
+</div>
+
+
+{{!-- Update Products Table --}}
+<div class="field-select-form">
+    
+    <form id="update-product-form-ajax" class="forms">
+    <h3>Update Product's Category</h3>
+
+        <label for="input-productID">Product Name: </label>
+        <select class="form-select" name="input-productID" id="input-productID-update">
+            <option value="">Select Product Name</option>
+            {{#each product}}
+            <option value="{{this.productID}}">{{this.productName}}</option>
+            {{/each}}
+        </select>
+
+        <div>
+            <label for="input-categoryID">Category Name: </label>
+            <select class="form-select" name="input-categoryID" id="input-categoryID-update">
+                <option value="">Select Category</option>
+                <option value="">No Category</option>
+                {{#each categories}}
+                <option value="{{this.categoryID}}">{{this.categoryName}}</option>
+                {{/each}}
+            </select>
+        </div>
+        
+        <input class="style-button" type="submit">
+    </form>
+ </div>
+
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_product.js"></script>
+<script src="./js/update_product.js"></script>
+

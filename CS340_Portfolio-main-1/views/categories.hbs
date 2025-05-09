@@ -1,0 +1,63 @@
+{{!-- 
+Citation for the following code
+Date: 5/21/23
+Adapted from CS 340 Node JS Starter Code
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app--}}
+
+<h1>Categories</h1>
+
+{{!-- Categories Table --}}
+<table id="categories-table">
+    <thead>
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+    <tbody>
+        {{#each category}}
+        <tr>
+            <td>{{this.categoryID}}</td>
+            <td>{{this.categoryName}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<p>&nbsp;</p>
+
+{{!-- Form to search by category --}}
+<div class="field-search-s">
+    <h3>Search by Category</h3>
+    <form class="forms" id="search-category-html" method='GET' action='/categories'>
+        <label for="input-categoryID">Look up a Category: </label>
+        <select class="form-select" name="categoryID" id="input-categoryID-html-search">
+            <option value="">Select a Category</option>
+            {{#each category}}
+            <option value="{{this.categoryID}}">{{this.categoryName}}</option>
+            {{/each}}
+        </select>
+ 
+        <input class="style-button" type="submit">
+        <a href='/categories'><button>Reset</button></a>
+    </form>
+</div>
+
+{{!-- Form to add a Category --}}
+<div class="field-select-form">
+    <h3>Add Category</h3>
+    <form id="add-category-form-ajax" class="forms">
+
+        <label for="input-categoryName">Category Name:</label>
+        <input required placeholder="Category Name" class="form-input" type="text" name="input-categoryName" id="input-categoryName" />
+
+        <input class="style-button" type="submit">
+    </form>
+</div>
+
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_categories.js"></script>

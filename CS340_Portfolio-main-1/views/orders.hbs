@@ -1,0 +1,156 @@
+{{!-- 
+Citation for the following code 
+Date: 5/21/23
+Adapted from CS 340 Node JS Starter Code
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app--}}
+
+<h1>Orders</h1>
+
+{{!-- Orders Table --}}
+<table id="orders-table">
+   
+    <thead>
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+            <th>delete</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each data2}}
+        <tr>
+            <td>{{this.orderID}}</td>
+            <td>{{this.customerID}}</td>
+            <td>{{this.orderDate}}</td>
+            <td>{{this.orderStatus}}</td>
+            <td>{{this.shippedDate}}</td>
+            <td>{{this.orderTotal}}</td>
+            <td><button onclick="deleteOrder({{this.orderID}})" >Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+<script src="./js/delete_order.js"></script>
+
+<p>&nbsp;</p>
+
+
+{{!-- Form to search a customer by name  --}}
+
+<div class="field-search-s">
+    <h3>Search Order by Customer Name</h3>
+    <form class="forms" id="search-order-html" method='GET' action='/orders'>
+        <label for="input-customerID">Customer Name: </label>
+        <select class="form-select" name="customerID" id="input-customerID-html-search">
+            <option value="">Select Customer Name</option>
+            {{#each customers}}
+            <option value="{{this.customerID}}">{{this.firstName}} {{this.lastName}}</option>
+            {{/each}}
+        </select>
+ 
+        <input class="style-button" type="submit">
+        <a href='/orders'><button>Reset</button></a>
+    </form>
+</div>
+
+
+{{!-- Form to add an order --}}
+<div class="field-select-form">
+
+    <form id="add-order-form-ajax" class="forms">
+    <h3>Add Orders</h3>
+       
+        <div>
+            <label for="input-customerID">Customer Name:</label>
+            <select required class="form-select" name="input-customerID" id="input-customerID">
+                <option value="">Customer Name</option>
+                {{#each customers}}
+                <option value="{{this.customerID}}">{{this.firstName}} {{this.lastName}}</option>
+                {{/each}}
+            </select>
+        </div>
+
+        <div>
+            <label for="input-orderDate">Order Date:</label>
+            <input required class="form-input" type="date" name="input-orderDate" id="input-orderDate" />
+        </div>
+
+        <div>
+        <label for="input-orderStatus">Order Status: </label>
+        <select required class="form-select" name="input-orderStatus" id="input-orderStatus">
+            <option value="">Select Order Status</option>
+            <option value="New">New</option>
+            <option value="Processing">Processing</option>
+            <option value="Shipped">Shipped</option>
+        </select>
+        </div>
+   
+        <div>
+            <label for="input-shippedDate">Shipped Date:</label>
+            <input class="form-input" type="date" name="input-shippedDate" id="input-shippedDate"/>
+        </div>
+  
+        <div>
+            <label for="input-orderTotal">Total: </label>
+            <input required placeholder="$" class="form-input" type="decimal" name="input-orderTotal" id="input-orderTotal">
+        </div>
+        
+        <input class="style-button" type="submit">
+    </form>
+</div>
+
+
+
+{{!-- Update Orders Table --}}
+<div class="field-select-form">
+
+    <form id="update-order-form-ajax" class="forms">
+    <h3>Update An Order</h3>
+    <p class="p-order">To edit an order, please select Order ID from the dropdown</p>
+
+        <label for="input-orderID">Order ID: </label>
+        <select class="form-select" name="input-orderID" id="input-orderID">
+            <option value="">Select Order ID</option>
+            {{#each data2}}
+            <option value="{{this.orderID}}">{{this.orderID}}</option>
+            {{/each}}
+        </select>
+
+        <label for="input-customerID">Customer Name: </label>
+        <select class="form-select" name="input-customerID" id="input-customerID-update">
+            <option value="">Select Customer Name</option>
+            {{#each customers}}
+            <option value="{{this.customerID}}">{{this.firstName}} {{this.lastName}}</option>
+            {{/each}}
+        </select>
+   
+        <label for="input-orderDate">Order Date:</label>
+        <input class="form-input" type="date" name="input-orderDate" id="input-orderDate-update" />
+
+        <label for="input-orderStatus">Order Status: </label>
+        <select class="form-select" name="input-orderStatus" id="input-orderStatus-update">
+            <option value="">Select Order Status</option>
+            <option value="New">New</option>
+            <option value="Processing">Processing</option>
+            <option value="Shipped">Shipped</option>
+        </select>
+
+        <label for="input-shippedDate">Shipped Date:</label>
+        <input class="form-input" type="date" name="input-shippedDate" id="input-shippedDate-update" />
+
+        <label for="input-orderTotal">Order Total:</label>
+        <input class="form-input" placeholder="$" type="decimal" name="input-orderTotal" id="input-orderTotal-update" />
+
+        <input class="style-button" type="submit">
+        </form>
+</div>
+
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_order.js"></script>
+<script src="./js/update_order.js"></script>
+

@@ -1,0 +1,127 @@
+{{!-- 
+Citation for the following code
+Date: 5/21/23
+Adapted from CS 340 Node JS Starter Code
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app--}}
+ 
+<h1>Order Details</h1>
+
+{{!-- Order Details Table--}}
+<table id="details-table">
+   
+    <thead>
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    <tbody>
+        {{#each data}}
+        <tr>
+            <td>{{'ID'}}</td>
+            <td>{{'Order Line'}}</td>
+            <td>{{'Order ID'}}</td>
+            <td>{{'Product'}}</td>
+            <td>{{this.quantity}}</td>
+            <td>{{'Item Price'}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<p>&nbsp;</p>
+
+
+{{!-- Form to add a order details  --}}
+
+<div class="field-select-form">
+    
+    <h3>Add Order Details</h3>
+    <form id="add-details-form-ajax" class="forms">
+    
+        <label for="input-Order Line">Order Line: </label>
+        <input required placeholder="Order Line: ex. 1" class="form-input" type="number" name="input-orderLine" id="input-orderLine">
+
+        <label for="input-orderID">Order ID: </label>
+        <select required class="form-select" name="input-orderID" id="input-orderID">
+            <option value="test">Select Order ID</option>
+            {{#each orders}}
+            <option value="{{this.orderID}}">{{this.orderID}}</option>
+            {{/each}}
+         </select>
+
+        <label for="input-productID">Product Name: </label>
+        <select required class="form-select" name="input-productID" id="input-productID">
+            <option value="test">Select Product Name</option>
+            {{#each products}}
+            <option value="{{this.productID}}">{{this.productName}}</option>
+            {{/each}}
+        </select>
+
+        <label for="input-quantity">Quantity: </label>
+        <input required placeholder="Quantity" class="form-input" type="number" name="input-quantity" id="input-quantity">
+    
+        <label for="input-itemPrice">Item Price: </label>
+        <input required placeholder="$" class="form-input" type="decimal" name="input-itemPrice" id="input-itemPrice">
+
+        <input class="style-button" type="submit">
+
+    </form>
+    
+</div>
+
+
+
+{{!-- Update Order Details Table --}}
+
+<div class="field-select-form">
+    <form id="update-orderdetails-form-ajax" class="forms">
+    <h3>Update Order Details</h3>
+
+    <label for="input-orderdetailsID">Order Details ID: </label>
+    <select class="form-select" name="input-orderdetailsID" id="input-orderdetailsID-update">
+        <option value="">Select Order Detail ID</option>
+        {{#each orderdetails}}
+        <option value="{{this.orderDetailsID}}">{{this.orderDetailsID}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-Order Line">Order Line: </label>
+    <input placeholder="Order Line: ex: 1"class="form-input" type="number" name="input-orderLine" id="input-orderLine-update">
+
+
+    <label for="input-orderID">Order ID: </label>
+    <select class="form-select" name="input-orderID" id="input-orderID-update">
+        <option value="">Select Order ID</option>
+        {{#each orders}}
+        <option value="{{this.orderID}}">{{this.orderID}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-productID">Product Name: </label>
+    <select class="form-select" name="input-productID" id="input-productID-update">
+        <option value="">Select Product Name</option>
+        {{#each products}}
+        <option value="{{this.productID}}">{{this.productName}}</option>
+        {{/each}}
+    </select>
+
+    <label for="input-quantity">Quantity: </label>
+    <input placeholder="Quantity" class="form-input" type="number" name="input-quantity" id="input-quantity-update">
+    
+    <label for="input-itemPrice">Item Price: </label>
+    <input placeholder="$" class="form-input" type="decimal" name="input-itemPrice" id="input-itemPrice-update">
+
+
+    <input class="style-button" type="submit">
+    </form>
+</div>
+
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_orderdetails.js"></script>
+<script src="./js/update_orderdetails.js"></script>

@@ -1,0 +1,103 @@
+{{!-- 
+Citation for the following code
+Date: 5/21/23
+Adapted from CS 340 Node JS Starter Code
+Source URL: https://github.com/osu-cs340-ecampus/nodejs-starter-app--}}
+
+<h1>Customers</h1>
+
+{{!-- Customers Table--}}
+<table id="customers-table">
+   
+    <thead>
+        <tr>
+            {{#each data.[0]}}
+            <th>
+                {{@key}}
+            </th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {{#each data}}
+        <tr>
+            <td>{{'ID'}}</td>
+            <td>{{'Name'}}</td>
+            <td>{{'Address'}}</td>
+            <td>{{this.city}}</td>
+            <td>{{this.state}}</td>
+            <td>{{'Zip Code'}}</td>
+            <td>{{this.country}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.phone}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+
+<p>&nbsp;</p>
+
+{{!-- Form to search a customer by name  --}}
+
+<div class="field-search-s">
+    <h3>Search by Customer Name</h3>
+    <form class="forms" id="search-customer-html" method='GET' action='/customers'>
+        <label for="input-Name">Customer Name: </label>
+        <select class="form-select" name="Name" id="input-Name-html-search">
+            <option value="">Select Customer Name</option>
+            {{#each data}}
+            <option value="{{'Name'}}">{{'Name'}}</option>
+            {{/each}}
+        </select>
+ 
+        <input class="style-button" type="submit">
+        <a href='/customers'><button>Reset</button></a>
+    </form>
+</div>
+
+
+{{!-- Form to add a customer  --}}
+
+<div class="field-select-form">
+    
+    <h3>Add Customers</h3>
+    <form id="add-customer-form-ajax" class="forms">
+        
+        <label for="input-firstName">First Name: </label>
+        <input required placeholder="First Name" class="form-input" type="text" name="input-firstName" id="input-firstName">
+    
+        <label for="input-lastName">Last Name: </label>
+        <input required placeholder="Last Name" class="form-input" type="text" name="input-lastName" id="input-lastName">
+
+        <label for="input-addressLine1">Address Line 1: </label>
+        <input required placeholder="Street Address" class="form-input" type="text" name="input-addressLine1" id="input-addressLine1">
+
+        <label for="input-addressLine2">Address Line 2: </label>
+        <input  placeholder="Optional: Apt or Unit #" class="form-input" type="text" name="input-addressLine2" id="input-addressLine2">
+
+        <label for="input-city">City: </label>
+        <input required placeholder="City" class="form-input" type="text" name="input-city" id="input-city">
+    
+        <label for="input-state">State: </label>
+        <input required placeholder="State" class="form-input" type="text" name="input-state" id="input-state">
+
+        <label for="input-zipCode">Zip Code: </label>
+        <input required placeholder="Zip Code" pattern="^\d{5}([\-]?\d{4})?$" class="form-input" type="text" name="input-zipCode" id="input-zipCode">
+
+        <label for="input-country">Country: </label>
+        <input required placeholder="Country" class="form-input" type="text" name="input-country" id="input-country">
+
+        <label for="input-email">Email: </label>
+        <input required placeholder="Email" class="form-input" type="email" name="input-email" id="input-email">
+
+        <label for="input-phone">Phone: </label>
+        <input required placeholder="555-123-4567" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" class="form-input" type="tel" name="input-phone" id="input-phone">
+
+        <input class="style-button" type="submit">
+    </form>
+</div>
+
+{{!-- Embed our javascript to handle the DOM manipulation and AJAX request --}}
+<script src="./js/add_customer.js"></script>
